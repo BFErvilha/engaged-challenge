@@ -1,0 +1,43 @@
+@import "./variables.scss";
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $rm-white; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $rm-primary; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $rm-secondary; 
+}
+
+.justify-content-center {justify-content: center !important}
+
+.rm-btn{
+  background: $rm-primary;
+  color: $rm-white;
+  border-radius: 50% 10% / 20% 60%;
+  transition: 0.5s;
+
+  &:hover{
+    background: radial-gradient(
+      circle at 50% 50%,
+      #5cad4a,
+      #208d45,
+      #a7cb54,
+      #0d0d0d
+    );
+  color: $rm-black;
+  }
+}
