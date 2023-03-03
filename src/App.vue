@@ -22,7 +22,9 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <div class="rm-container">
+        <router-view />
+      </div>
     </q-page-container>
   </q-layout>
 </template>
@@ -45,3 +47,4 @@ export default {
   },
 };
 </script>
+<style lang="scss"></style>

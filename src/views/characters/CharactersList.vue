@@ -1,8 +1,8 @@
 <template>
   <div class="row q-col-gutter-md">
     <div
-      class="col-md-3"
-      v-for="character in characters.characters"
+      class="col-sm-12 col-md-3"
+      v-for="character in paginatedCharacters"
       :key="character.id"
     >
       <q-card class="my-card rm-card">
@@ -14,15 +14,30 @@
         </q-img>
 
         <q-card-actions class="justify-content-center">
-          <q-btn class="rm-btn" flat>Detalhes</q-btn>
+          <q-btn class="rm-btn" flat @click="toDetails(character.id)"
+            >Detalhes</q-btn
+          >
         </q-card-actions>
       </q-card>
+    </div>
+    <div class="col-md-12 flex flex-center">
+      <q-pagination
+        v-model="currentPage"
+        :max="totalPages"
+        direction-links
+        push
+        color="teal"
+        active-design="push"
+        active-color="orange"
+        :boundary-numbers="false"
+      />
     </div>
   </div>
 </template>
 <script>
 import { gql } from 'graphql-tag';
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref, computed } from 'vue';
+import router from '@/router';
 
 const query = gql`
   query {
@@ -56,6 +71,18 @@ export default {
       characters.characters = data.characters.results;
     });
 
+    const currentPage = ref(1);
+    const itemsPerPage = ref(8);
+    const totalPages = computed(() =>
+      Math.ceil(characters.characters.length / itemsPerPage.value),
+    );
+
+    const paginatedCharacters = computed(() => {
+      const startIndex = (currentPage.value - 1) * itemsPerPage.value;
+      const endIndex = startIndex + itemsPerPage.value;
+      return characters.characters.slice(startIndex, endIndex);
+    });
+
     const vefifyStatus = (status) => {
       switch (status) {
         case 'Dead':
@@ -67,9 +94,16 @@ export default {
       }
     };
 
+    const toDetails = (id) => {
+      router.push({ name: 'Character', params: { characterId: id } });
+    };
     return {
       characters,
       vefifyStatus,
+      currentPage,
+      totalPages,
+      paginatedCharacters,
+      toDetails,
     };
   },
 };

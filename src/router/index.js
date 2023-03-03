@@ -15,6 +15,14 @@ const routes = [
         /* webpackChunkName: "charactersList" */ '@/views/characters/CharactersList.vue'
       ),
   },
+  {
+    path: '/characters/:characterId',
+    name: 'Character',
+    component: () =>
+      import(
+        /* webpackChunkName: "charactersList" */ '@/views/characters/Character.vue'
+      ),
+  },
 ];
 
 const router = createRouter({
