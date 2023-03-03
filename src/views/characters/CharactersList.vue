@@ -1,43 +1,50 @@
 <template>
-  <div class="row q-col-gutter-md">
-    <div
-      class="col-sm-12 col-md-3"
-      v-for="character in paginatedCharacters"
-      :key="character.id"
-    >
-      <q-card class="my-card rm-card">
-        <q-img :class="vefifyStatus(character.status)" :src="character.image">
-          <div class="absolute-bottom">
-            <div class="text-h6">{{ character.name }}</div>
-            <div class="text-subtitle2">Status: {{ character.status }}</div>
-          </div>
-        </q-img>
-
-        <q-card-actions class="justify-content-center">
-          <q-btn class="rm-btn" flat @click="toDetails(character.id)"
-            >Detalhes</q-btn
-          >
-        </q-card-actions>
-      </q-card>
+  <div>
+    <div class="text-center" v-if="isLoading">
+      <q-spinner-ball color="green" size="30em" />
     </div>
-    <div class="col-md-12 flex flex-center">
-      <q-pagination
-        v-model="currentPage"
-        :max="totalPages"
-        direction-links
-        push
-        color="teal"
-        active-design="push"
-        active-color="orange"
-        :boundary-numbers="false"
-      />
+    <div v-else class="row q-col-gutter-md">
+      <div
+        class="col-sm-12 col-md-3"
+        v-for="character in paginatedCharacters"
+        :key="character.id"
+      >
+        <q-card class="my-card rm-card">
+          <q-img :class="vefifyStatus(character.status)" :src="character.image">
+            <div class="absolute-bottom">
+              <div class="text-h6">{{ character.name }}</div>
+              <div class="text-subtitle2">Status: {{ character.status }}</div>
+            </div>
+          </q-img>
+
+          <q-card-actions class="justify-content-center">
+            <q-btn class="rm-btn" flat @click="toDetails(character.id)"
+              >Detalhes</q-btn
+            >
+          </q-card-actions>
+        </q-card>
+      </div>
+      <div class="col-md-12 flex flex-center">
+        <q-pagination
+          v-model="currentPage"
+          :max="totalPages"
+          direction-links
+          push
+          color="teal"
+          active-design="push"
+          active-color="orange"
+          :boundary-numbers="false"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { gql } from 'graphql-tag';
+import { GraphQLClient } from 'graphql-request';
 import { reactive, onMounted, ref, computed } from 'vue';
 import router from '@/router';
+import { useStore } from 'vuex';
 
 const query = gql`
   query {
@@ -57,18 +64,22 @@ export default {
     const characters = reactive({
       characters: [],
     });
+    const isLoading = ref(true);
+    const store = useStore();
+    const graphqlLink = store.getters.graphqlUrl;
 
     onMounted(async () => {
-      const response = await fetch('https://rickandmortyapi.com/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: query.loc.source.body }),
-      });
-
-      const { data } = await response.json();
-      characters.characters = data.characters.results;
+      const listRequest = new GraphQLClient(graphqlLink);
+      listRequest
+        .request(query)
+        .then((data) => {
+          characters.characters = data.characters.results;
+          isLoading.value = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          isLoading.value = false;
+        });
     });
 
     const currentPage = ref(1);
@@ -104,6 +115,7 @@ export default {
       totalPages,
       paginatedCharacters,
       toDetails,
+      isLoading,
     };
   },
 };

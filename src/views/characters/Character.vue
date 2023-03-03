@@ -92,6 +92,7 @@ import { ref, onMounted, computed, reactive, toRaw } from 'vue';
 import { GraphQLClient, gql } from 'graphql-request';
 import router from '@/router';
 import EpisodesList from './EpisodesList';
+import { useStore } from 'vuex';
 
 const requestCharacterById = gql`
   query getCharacterById($id: ID!) {
@@ -155,47 +156,56 @@ export default {
     const episodes = reactive({
       eps: [],
     });
+    const isLoading = ref(true);
+    const store = useStore();
+    const graphqlLink = store.getters.graphqlUrl;
+    const listRequest = new GraphQLClient(graphqlLink);
 
     const getCharacterById = async (id) => {
-      const endpoint = 'https://rickandmortyapi.com/graphql';
-      const graphQLClient = new GraphQLClient(endpoint, {
-        headers: {},
-      });
-      const { character } = await graphQLClient.request(requestCharacterById, {
-        id,
-      });
-      requestChar.value = { ...character };
+      listRequest
+        .request(requestCharacterById, {
+          id,
+        })
+        .then((data) => {
+          requestChar.value = { ...data.character };
+          isLoading.value = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          isLoading.value = false;
+        });
     };
 
     const getLocation = async (id) => {
-      const endpoint = 'https://rickandmortyapi.com/graphql';
-      const graphQLClient = new GraphQLClient(endpoint, {
-        headers: {},
-      });
-      const { character } = await graphQLClient.request(
-        requestLocationByCharacterId,
-        {
+      listRequest
+        .request(requestLocationByCharacterId, {
           id,
-        },
-      );
-      locationChar.value = { ...character.location };
-      locationResidents.residents = character.location.residents;
-      totalResidents.value = countTotal(locationResidents.residents);
+        })
+        .then((data) => {
+          locationChar.value = { ...data.character.location };
+          locationResidents.residents = data.character.location.residents;
+          totalResidents.value = countTotal(locationResidents.residents);
+          isLoading.value = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          isLoading.value = false;
+        });
     };
 
     const getEpisodes = async (id) => {
-      const endpoint = 'https://rickandmortyapi.com/graphql';
-      const graphQLClient = new GraphQLClient(endpoint, {
-        headers: {},
-      });
-      const { character } = await graphQLClient.request(
-        requestEpisodesByCharacterId,
-        {
+      listRequest
+        .request(requestEpisodesByCharacterId, {
           id,
-        },
-      );
-
-      episodes.eps = character.episode;
+        })
+        .then((data) => {
+          episodes.eps = data.character.episode;
+          isLoading.value = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          isLoading.value = false;
+        });
     };
 
     onMounted(async () => {
