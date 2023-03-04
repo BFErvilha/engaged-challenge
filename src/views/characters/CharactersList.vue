@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="text-center" v-if="isLoading">
-      <q-spinner-ball color="green" size="30em" />
-    </div>
+    <Loading v-if="isLoading" />
     <div v-else class="row q-col-gutter-md">
       <div
-        class="col-sm-12 col-md-3"
-        v-for="character in paginatedCharacters"
+        class="col-sm-6 col-md-3"
+        v-for="character in list.characters"
         :key="character.id"
       >
         <q-card class="my-card rm-card">
@@ -26,13 +24,10 @@
       </div>
       <div class="col-md-12 flex flex-center">
         <q-pagination
-          v-model="currentPage"
-          :max="totalPages"
-          direction-links
-          push
+          v-model="list.page"
           color="teal"
-          active-design="push"
-          active-color="orange"
+          :max="10"
+          :max-pages="list.totalPages"
           :boundary-numbers="false"
         />
       </div>
@@ -40,59 +35,82 @@
   </div>
 </template>
 <script>
-import { gql } from 'graphql-tag';
-import { GraphQLClient } from 'graphql-request';
-import { reactive, onMounted, ref, computed } from 'vue';
+import { GraphQLClient, gql } from 'graphql-request';
+import { reactive, ref, watchEffect } from 'vue';
 import router from '@/router';
 import { useStore } from 'vuex';
 
+import Loading from '@/components/Loading.vue';
+
 const query = gql`
-  query {
-    characters {
+  query ($page: Int!, $name: String!, $status: String!) {
+    characters(page: $page, filter: { name: $name, status: $status }) {
+      info {
+        pages
+      }
       results {
         id
         name
-        image
         status
+        species
+        type
+        gender
+        image
       }
     }
   }
 `;
 export default {
   name: 'CharactersList',
+  components: {
+    Loading,
+  },
   setup() {
-    const characters = reactive({
-      characters: [],
+    const list = reactive({
+      characters: null,
+      page: 1,
+      name: '',
+      status: '',
+      totalPages: 0,
+      pageSize: 8,
     });
     const isLoading = ref(true);
     const store = useStore();
-    const graphqlLink = store.getters.graphqlUrl;
+    const listRequest = new GraphQLClient(store.getters.graphqlUrl);
 
-    onMounted(async () => {
-      const listRequest = new GraphQLClient(graphqlLink);
-      listRequest
-        .request(query)
-        .then((data) => {
-          characters.characters = data.characters.results;
-          isLoading.value = false;
-        })
-        .catch((error) => {
-          console.error(error);
-          isLoading.value = false;
-        });
+    const loadCharacters = async (page, name, status) => {
+      const filter = {
+        page,
+        name,
+        status,
+      };
+
+      const data = await listRequest.request(query, filter);
+
+      return data.characters;
+    };
+
+    const loadingCharactersPage = async () => {
+      isLoading.value = true;
+
+      const result = await loadCharacters(list.page, list.name, list.status);
+
+      list.characters = result.results;
+      list.totalPages = result.info.pages;
+      isLoading.value = false;
+    };
+
+    loadingCharactersPage();
+
+    watchEffect(() => {
+      loadingCharactersPage();
     });
 
-    const currentPage = ref(1);
-    const itemsPerPage = ref(8);
-    const totalPages = computed(() =>
-      Math.ceil(characters.characters.length / itemsPerPage.value),
-    );
-
-    const paginatedCharacters = computed(() => {
-      const startIndex = (currentPage.value - 1) * itemsPerPage.value;
-      const endIndex = startIndex + itemsPerPage.value;
-      return characters.characters.slice(startIndex, endIndex);
-    });
+    // watch([list], (newValue, oldValue) => {
+    //   let { page } = toRaw(newValue);
+    //   console.log(page);
+    //   console.log(oldValue);
+    // });
 
     const vefifyStatus = (status) => {
       switch (status) {
@@ -109,11 +127,8 @@ export default {
       router.push({ name: 'Character', params: { characterId: id } });
     };
     return {
-      characters,
+      list,
       vefifyStatus,
-      currentPage,
-      totalPages,
-      paginatedCharacters,
       toDetails,
       isLoading,
     };
@@ -124,7 +139,7 @@ export default {
 <style lang="scss">
 .rm-card {
   position: relative;
-  width: 300px;
+  width: 225px;
   margin: 30px auto;
   border-radius: 50% 10% / 20% 60%;
   border-width: 4px;

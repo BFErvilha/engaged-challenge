@@ -22,6 +22,14 @@
   background: $rm-secondary; 
 }
 
+html { 
+  background: url('../images/bg-rm.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .justify-content-center {justify-content: center !important}
 .flex-end{justify-content: flex-end!important;}
 
@@ -41,4 +49,43 @@
     );
   color: $rm-black;
   }
+}
+
+.q-layout__section--marginal {
+  background-color:$rm-primary;
+  color: $rm-white;
+}
+
+.q-drawer--left.q-drawer--bordered {
+  border-right: 1px solid rgba(167, 203, 84, 0.80)!important;
+}
+
+.bg-menu {
+  background-color:$rm-black;
+}
+.menu-title{
+  font-family: $font-title;
+  font-size: 20px;
+  color: $rm-primary
+}
+
+.header-title{
+  font-family: $font-title;
+}
+
+.menu-item{
+ color: $rm-white;
+ font-family: $font-title;
+ font-size: 22px;
+
+ svg{
+  fill: $rm-white;
+ }
+}
+
+.q-item.q-router-link--active, .q-item--active {
+  color: $rm-primary;
+  svg{
+    fill: $rm-primary;
+   }
 }

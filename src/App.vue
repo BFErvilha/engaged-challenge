@@ -11,13 +11,13 @@
           icon="menu"
         />
 
-        <q-toolbar-title> EngagED Code Challenge </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title class="header-title">
+          EngagED Code Challenge
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-grey-2">
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-menu">
       <VerticalNavMenu />
     </q-drawer>
 
