@@ -1,17 +1,17 @@
 <template>
   <div>
     <Loading v-if="isLoading" />
-    <div v-else class="row q-col-gutter-md">
+    <div v-else class="row justify-content-between">
       <div
-        class="col-sm-6 col-md-3"
+        class="col-sm-6 col-md-4 col-lg-3"
         v-for="character in list.characters"
         :key="character.id"
       >
         <q-card class="my-card rm-card">
           <q-img :class="vefifyStatus(character.status)" :src="character.image">
             <div class="absolute-bottom">
-              <div class="text-h6">{{ character.name }}</div>
-              <div class="text-subtitle2">Status: {{ character.status }}</div>
+              <div class="name">{{ character.name }}</div>
+              <div class="status">Status: {{ character.status }}</div>
             </div>
           </q-img>
 
@@ -29,7 +29,8 @@
           color="teal"
           :max="10"
           :max-pages="list.totalPages"
-          :boundary-numbers="false"
+          input
+          input-class="text-teal-10"
         />
       </div>
     </div>
@@ -150,6 +151,10 @@ export default {
   background-clip: padding-box;
   transition: 0.3s;
 
+  @media (max-width: 600px) {
+    width: 180px;
+  }
+
   &:hover {
     transform: rotate(5deg);
   }
@@ -179,18 +184,23 @@ export default {
     border-radius: 45% 30%/92% 20%;
     width: 220px;
     margin: 0 auto;
+    padding: 4px;
     text-align: center;
     box-sizing: border-box;
+    @media (max-width: 600px) {
+      width: 160px;
+    }
   }
 }
 
 .rm-pagination-container {
-  height: 50px;
+  height: 150px;
   padding: 30px 0;
+  width: 100%;
 
   .rm-pagination {
     .q-btn {
-      padding: 10px 15px !important;
+      padding: 10px 10px !important;
     }
   }
 }

@@ -30,6 +30,7 @@ html {
   background-size: cover;
 }
 
+.justify-content-between {justify-content: space-between!important}
 .justify-content-center {justify-content: center !important}
 .flex-end{justify-content: flex-end!important;}
 
@@ -88,4 +89,15 @@ html {
   svg{
     fill: $rm-primary;
    }
+}
+
+.rm-card{
+  .absolute-bottom {
+    .name {
+      font-family: $font-text;
+    }
+    .status{
+      font-family: $font-text;
+    }
+  }  
 }
