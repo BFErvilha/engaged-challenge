@@ -30,7 +30,7 @@
           :max="10"
           :max-pages="list.totalPages"
           input
-          input-class="text-teal-10"
+          input-class="text-light-green"
         />
       </div>
     </div>
