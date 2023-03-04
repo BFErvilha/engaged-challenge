@@ -22,8 +22,9 @@
           </q-card-actions>
         </q-card>
       </div>
-      <div class="col-md-12 flex flex-center">
+      <div class="col-md-12 flex flex-center rm-pagination-container">
         <q-pagination
+          class="rm-pagination"
           v-model="list.page"
           color="teal"
           :max="10"
@@ -106,12 +107,6 @@ export default {
       loadingCharactersPage();
     });
 
-    // watch([list], (newValue, oldValue) => {
-    //   let { page } = toRaw(newValue);
-    //   console.log(page);
-    //   console.log(oldValue);
-    // });
-
     const vefifyStatus = (status) => {
       switch (status) {
         case 'Dead':
@@ -186,6 +181,17 @@ export default {
     margin: 0 auto;
     text-align: center;
     box-sizing: border-box;
+  }
+}
+
+.rm-pagination-container {
+  height: 50px;
+  padding: 30px 0;
+
+  .rm-pagination {
+    .q-btn {
+      padding: 10px 15px !important;
+    }
   }
 }
 </style>
