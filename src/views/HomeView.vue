@@ -6,7 +6,7 @@
       </div>
       <div class="col-12 info-text text-center">
         <h1 class="title">Code Challenge Utilizando:</h1>
-        <p class="opt">GrapQL para realizar consulta</p>
+        <p class="opt">GrapHQL para realizar consulta</p>
         <p class="opt">Quasar como UI Components</p>
         <p class="opt">VueX</p>
         <p class="opt">Vue.JS 3 (composition API)</p>
