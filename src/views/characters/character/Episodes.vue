@@ -1,7 +1,7 @@
 <template>
   <q-card class="my-card rm-card-character rm-card-shadow">
     <q-card-section>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md justify-content-between">
         <div class="col-12">
           <h2 class="rm-card-title">Episódios:</h2>
         </div>

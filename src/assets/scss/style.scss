@@ -1,5 +1,5 @@
 @import "./variables.scss";
-* {
+p {
   font-family: $font-text;
 }
 /* width */
@@ -73,7 +73,7 @@ html {
   background-color:$rm-black;
 }
 .menu-title{
-  font-family: $font-title;
+  font-family: $font-title!important;
   font-size: 20px;
   color: $rm-primary
 }
@@ -84,7 +84,7 @@ html {
 
 .menu-item{
  color: $rm-white;
- font-family: $font-title;
+ font-family: $font-title!important;
  font-size: 22px;
 
  svg{
@@ -149,6 +149,7 @@ html {
 
 .rm-card-character {
   background: #0d0d0ddb;
+  width: 100%;
   .info {
     font-family: $font-text;
     color: $rm-secondary;
@@ -200,4 +201,12 @@ html {
   input{
     color: $rm-primary;
   }
+}
+
+.flex-wrap{
+  flex-wrap: wrap!important;
+}
+
+.flex-wrap-reverse{
+  flex-wrap: wrap-reverse!important;
 }

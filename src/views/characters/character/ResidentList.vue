@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div
-      class="col-sm-6 col-md-3 resident-item"
+      class="col-6 col-md-4 col-lg-3 resident-item"
       v-for="resident in residentList"
       :key="resident.id"
       @click="toResidentPage(resident.id)"

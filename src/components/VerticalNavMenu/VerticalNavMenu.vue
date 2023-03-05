@@ -9,7 +9,7 @@
         <q-item-label>Personagens</q-item-label>
       </q-item-section>
     </q-item>
-    <q-item
+    <!-- <q-item
       class="menu-item"
       clickable
       tag="a"
@@ -22,8 +22,8 @@
       <q-item-section>
         <q-item-label class="menu-item">Locais</q-item-label>
       </q-item-section>
-    </q-item>
-    <q-item
+    </q-item> -->
+    <!-- <q-item
       class="menu-item"
       clickable
       tag="a"
@@ -36,18 +36,18 @@
       <q-item-section>
         <q-item-label>Episódios</q-item-label>
       </q-item-section>
-    </q-item>
+    </q-item> -->
   </q-list>
 </template>
 <script>
 import Rick from './icons/rick.vue';
-import Morty from './icons/morty.vue';
-import Jerry from './icons/jerry.vue';
+// import Morty from './icons/morty.vue';
+// import Jerry from './icons/jerry.vue';
 export default {
   components: {
     Rick,
-    Morty,
-    Jerry,
+    // Morty,
+    // Jerry,
   },
 };
 </script>

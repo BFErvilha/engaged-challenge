@@ -1,11 +1,11 @@
 <template>
   <q-card class="my-card rm-card-character rm-card-shadow">
     <q-card-section>
-      <div class="row justify-content-between">
+      <div class="row justify-content-between flex-wrap">
         <div class="col-12">
           <h2 class="rm-card-title">Info:</h2>
         </div>
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6">
           <p class="info">
             Nome: <br /><span>{{ character.name }}</span>
           </p>
@@ -30,7 +30,7 @@
             Genero: <br /><span>{{ character.gender }}</span>
           </p>
         </div>
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6">
           <p class="info">
             Origem: <br /><span>{{ character.origin }}</span>
           </p>

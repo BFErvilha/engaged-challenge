@@ -2,7 +2,7 @@
   <div>
     <Loading v-if="isLoading" />
     <div v-else class="row justify-content-between">
-      <div class="col-sm-12 col-xs-12 col-md-3 col-lg-2">
+      <div class="col-12 col-md-4 col-lg-2">
         <q-card class="my-card rm-card-profile">
           <q-img :src="char.info.image">
             <div class="absolute-bottom text-subtitle2 text-center">
@@ -11,18 +11,18 @@
           </q-img>
         </q-card>
       </div>
-      <div class="col-md-10">
+      <div class="col-12 col-md-7 col-lg-10">
         <div class="row justify-content-between" style="padding: 20px 30px">
-          <div class="col-md-6 p-10">
+          <div class="col-12 col-lg-6 p-10">
             <CharacterInfo style="margin-top: 10px" :character="char.info" />
           </div>
-          <div class="col-md-6 p-10">
+          <div class="col-12 col-lg-6 p-10">
             <LocationInfo style="margin-top: 10px" :location="char.location" />
           </div>
-          <div class="col-md-6 p-10">
+          <div class="col-12 col-lg-6 p-10">
             <Episodes :episodes="char.episodes" />
           </div>
-          <div class="col-md-6 p-10">
+          <div class="col-12 col-lg-6 p-10">
             <Residents :residents="char.locationResidents" />
           </div>
         </div>
