@@ -47,4 +47,8 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.rm-container {
+  padding: 20px 30px;
+}
+</style>

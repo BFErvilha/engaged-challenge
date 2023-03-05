@@ -30,7 +30,7 @@
           :max="10"
           :max-pages="list.totalPages"
           input
-          input-class="text-light-green"
+          input-class="text-primary"
         />
       </div>
     </div>
@@ -120,6 +120,7 @@ export default {
     };
 
     const toDetails = (id) => {
+      store.dispatch('changeToNewCharacter', id);
       router.push({ name: 'Character', params: { characterId: id } });
     };
     return {

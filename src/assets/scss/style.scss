@@ -1,5 +1,7 @@
 @import "./variables.scss";
-
+* {
+  font-family: $font-text;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
@@ -31,9 +33,12 @@ html {
 }
 
 .justify-content-between {justify-content: space-between!important}
+.justify-content-arround {justify-content: space-around!important}
 .justify-content-center {justify-content: center !important}
 .flex-end{justify-content: flex-end!important;}
-
+.p-10{
+  padding: 10px;
+}
 .rm-btn{
   background: $rm-primary;
   color: $rm-white;
@@ -103,4 +108,86 @@ html {
       font-family: $font-text;
     }
   }  
+}
+
+.rm-card-shadow:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-45deg, #a7cb54 12%, #208d45 69%);
+  transform: translate3d(6px, 2px, 0) scale(0.99);
+  filter: blur(11px);
+  opacity: var(0.7);
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+
+.rm-card-shadow::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+}
+
+.rm-card-title{
+  margin: 5px;
+  font-size: 25px;
+  line-height: 32px;
+  font-family: $font-title;
+  color: $rm-primary;
+  text-shadow: 2px 2px $rm-black;
+}
+
+.rm-card-character {
+  background: #0d0d0ddb;
+  .info {
+    font-family: $font-text;
+    color: $rm-secondary;
+    span{
+      color: $rm-white
+    }
+  }
+}  
+
+.ep-list-text {
+  font-family: $font-text;
+  color: $rm-white;
+  span{
+    color: $rm-secondary;
+  }
+}
+
+.episode-item{
+  .name{
+    color: $rm-secondary;
+    span{
+      color: $rm-white
+    }
+  }
+  .air-date{
+    color: $rm-secondary;
+    span{
+      color: $rm-white
+    }
+  }
+}
+
+.resident-item {
+  .resident-name {
+    color: $rm-white;
+  }
+  &:hover{
+    .resident-name{
+    color: $rm-secondary;
+    }
+  }
 }
