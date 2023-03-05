@@ -24,7 +24,11 @@
     <div class="col-12">
       <Loading class="col-12" v-if="isLoading" />
       <div v-else class="row q-col-gutter-md justify-content-center">
-        <div class="col-3" v-for="episode in list.episodes" :key="episode.id">
+        <div
+          class="col-12 col-md-6 col-lg-3"
+          v-for="episode in list.episodes"
+          :key="episode.id"
+        >
           <EpisodeCard :episode="episode" />
         </div>
       </div>
