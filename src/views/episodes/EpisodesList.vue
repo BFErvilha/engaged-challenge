@@ -108,7 +108,6 @@ export default {
       const result = await loadEpisodes(list.page, list.name, list.episode);
 
       list.episodes = result.results;
-      console.log(list);
       list.count = result.info.count;
       list.totalPages = result.info.pages;
       isLoading.value = false;
