@@ -210,3 +210,23 @@ html {
 .flex-wrap-reverse{
   flex-wrap: wrap-reverse!important;
 }
+
+.rm-card-character, .rm-card{
+  .Dead {
+    img {
+      filter: grayscale(1);
+      &:hover {
+        filter: grayscale(0);
+      }
+    }
+  }
+
+  .unknown {
+    img {
+      filter: sepia(1);
+      &:hover {
+        filter: sepia(0);
+      }
+    }
+  }
+}

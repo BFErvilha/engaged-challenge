@@ -24,7 +24,7 @@
     <Loading class="col-12" v-if="isLoading" />
     <div v-else class="row justify-content-between">
       <div
-        class="col-sm-6 col-md-4 col-lg-3"
+        class="col-sm-6 col-md-4 col-lg-3 resident-item"
         v-for="character in list.characters"
         :key="character.id"
       >
@@ -204,23 +204,6 @@ export default {
 
   img {
     border-radius: 50% 10% / 20% 60%;
-  }
-  .Dead {
-    img {
-      filter: grayscale(1);
-      &:hover {
-        filter: grayscale(0);
-      }
-    }
-  }
-
-  .unknown {
-    img {
-      filter: sepia(1);
-      &:hover {
-        filter: sepia(0);
-      }
-    }
   }
 
   .absolute-bottom {

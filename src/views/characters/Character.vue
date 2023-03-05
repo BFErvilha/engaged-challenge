@@ -101,7 +101,7 @@ export default {
       locationResidents: null,
       episodes: null,
     });
-    // const totalResidents = ref(0);
+
     const isLoading = ref(true);
     const graphqlLink = store.getters.graphqlUrl;
     const listRequest = new GraphQLClient(graphqlLink);
