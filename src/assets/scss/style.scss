@@ -191,3 +191,13 @@ html {
     }
   }
 }
+
+.rm-input{
+  background: $rm-white;
+  border-radius: .375rem;
+  width: 250px;
+  margin-left: 10px ;
+  input{
+    color: $rm-primary;
+  }
+}

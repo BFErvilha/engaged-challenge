@@ -1,6 +1,27 @@
 <template>
-  <div>
-    <Loading v-if="isLoading" />
+  <div class="row">
+    <div class="col-12">
+      <form
+        @submit.prevent
+        style="display: flex; justify-content: flex-end; margin-right: 10px"
+      >
+        <q-input
+          outlined
+          v-model="filterName"
+          label="Nome do Personagem"
+          class="rm-input"
+        />
+
+        <q-select
+          outlined
+          v-model="filterStatus"
+          :options="statusOptions"
+          label="Status"
+          class="rm-input"
+        />
+      </form>
+    </div>
+    <Loading class="col-12" v-if="isLoading" />
     <div v-else class="row justify-content-between">
       <div
         class="col-sm-6 col-md-4 col-lg-3"
@@ -25,9 +46,9 @@
       <div class="col-md-12 flex flex-center rm-pagination-container">
         <q-pagination
           class="rm-pagination"
-          v-model="list.page"
+          v-model="currentPage"
           color="teal"
-          :max="10"
+          :max="list.totalPages"
           :max-pages="list.totalPages"
           input
           input-class="text-primary"
@@ -38,7 +59,7 @@
 </template>
 <script>
 import { GraphQLClient, gql } from 'graphql-request';
-import { reactive, ref, watchEffect } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import router from '@/router';
 import { useStore } from 'vuex';
 
@@ -76,9 +97,19 @@ export default {
       totalPages: 0,
       pageSize: 8,
     });
+
     const isLoading = ref(true);
+    const currentPage = ref(1);
+    const filterName = ref('');
+    const filterStatus = ref('');
     const store = useStore();
     const listRequest = new GraphQLClient(store.getters.graphqlUrl);
+    const statusOptions = [
+      { label: 'Todos', value: '' },
+      { label: 'Vivo', value: 'Alive' },
+      { label: 'Morto', value: 'Dead' },
+      { label: 'Desconhecido', value: 'unknown' },
+    ];
 
     const loadCharacters = async (page, name, status) => {
       const filter = {
@@ -95,6 +126,12 @@ export default {
     const loadingCharactersPage = async () => {
       isLoading.value = true;
 
+      list.page = currentPage.value;
+      list.name = filterName.value;
+      list.status = filterStatus.value.value
+        ? filterStatus.value.value
+        : filterStatus.value;
+
       const result = await loadCharacters(list.page, list.name, list.status);
 
       list.characters = result.results;
@@ -104,7 +141,7 @@ export default {
 
     loadingCharactersPage();
 
-    watchEffect(() => {
+    watch([currentPage, filterName, filterStatus], () => {
       loadingCharactersPage();
     });
 
@@ -123,11 +160,16 @@ export default {
       store.dispatch('changeToNewCharacter', id);
       router.push({ name: 'Character', params: { characterId: id } });
     };
+
     return {
       list,
       vefifyStatus,
       toDetails,
       isLoading,
+      currentPage,
+      filterName,
+      filterStatus,
+      statusOptions,
     };
   },
 };
@@ -153,7 +195,7 @@ export default {
   transition: 0.3s;
 
   @media (max-width: 600px) {
-    width: 180px;
+    width: 150px;
   }
 
   &:hover {
