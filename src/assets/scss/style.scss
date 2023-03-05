@@ -157,6 +157,13 @@ html {
       color: $rm-white
     }
   }
+  .info-characters{
+    font-family: $font-text;
+    color: $rm-white;
+    span{
+      color:$rm-secondary 
+    }
+  }
 }  
 
 .ep-list-text {

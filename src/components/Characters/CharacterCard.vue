@@ -77,23 +77,6 @@ export default {
   img {
     border-radius: 50% 10% / 20% 60%;
   }
-  .Dead {
-    img {
-      filter: grayscale(1);
-      &:hover {
-        filter: grayscale(0);
-      }
-    }
-  }
-
-  .unknown {
-    img {
-      filter: sepia(1);
-      &:hover {
-        filter: sepia(0);
-      }
-    }
-  }
 
   .absolute-bottom {
     border-radius: 45% 30%/92% 20%;

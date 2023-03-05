@@ -20,7 +20,7 @@ const routes = [
     name: 'Character',
     component: () =>
       import(
-        /* webpackChunkName: "charactersList" */ '@/views/characters/Character.vue'
+        /* webpackChunkName: "character" */ '@/views/characters/Character.vue'
       ),
   },
   {
@@ -28,16 +28,30 @@ const routes = [
     name: 'LocationsList',
     component: () =>
       import(
-        /* webpackChunkName: "locations" */ '@/views/locations/LocationsList.vue'
+        /* webpackChunkName: "locationsList" */ '@/views/locations/LocationsList.vue'
       ),
   },
   {
     path: '/locations/:locationId',
-    name: 'Locations',
+    name: 'Location',
     component: () =>
       import(
-        /* webpackChunkName: "locations" */ '@/views/locations/Location.vue'
+        /* webpackChunkName: "location" */ '@/views/locations/Location.vue'
       ),
+  },
+  {
+    path: '/episodes',
+    name: 'EpisodesList',
+    component: () =>
+      import(
+        /* webpackChunkName: "EpisodesList" */ '@/views/episodes/EpisodesList.vue'
+      ),
+  },
+  {
+    path: '/episodes/:episodeId',
+    name: 'Episode',
+    component: () =>
+      import(/* webpackChunkName: "Episodes" */ '@/views/episodes/Episode.vue'),
   },
 ];
 

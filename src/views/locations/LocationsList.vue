@@ -117,8 +117,6 @@ export default {
       totalPages: 0,
     });
 
-    const columns = [{ name: 'name', label: 'Nome', field: 'name' }];
-
     const currentPage = ref(1);
     const filterLocation = ref('');
     const filterDimension = ref('');
@@ -160,12 +158,11 @@ export default {
     });
 
     const toDetails = (id) => {
-      router.push({ name: 'Locations', params: { locationId: id } });
+      router.push({ name: 'Location', params: { locationId: id } });
     };
 
     return {
       list,
-      columns,
       currentPage,
       isLoading,
       toDetails,
