@@ -9,20 +9,14 @@
         <q-item-label>Personagens</q-item-label>
       </q-item-section>
     </q-item>
-    <!-- <q-item
-      class="menu-item"
-      clickable
-      tag="a"
-      target="_blank"
-      href="https://github.com/quasarframework/"
-    >
+    <q-item class="menu-item" clickable tag="a" to="/locations">
       <q-item-section avatar>
         <Morty />
       </q-item-section>
       <q-item-section>
-        <q-item-label class="menu-item">Locais</q-item-label>
+        <q-item-label>Locais</q-item-label>
       </q-item-section>
-    </q-item> -->
+    </q-item>
     <!-- <q-item
       class="menu-item"
       clickable
@@ -41,12 +35,12 @@
 </template>
 <script>
 import Rick from './icons/rick.vue';
-// import Morty from './icons/morty.vue';
+import Morty from './icons/morty.vue';
 // import Jerry from './icons/jerry.vue';
 export default {
   components: {
     Rick,
-    // Morty,
+    Morty,
     // Jerry,
   },
 };

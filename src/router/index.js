@@ -23,6 +23,22 @@ const routes = [
         /* webpackChunkName: "charactersList" */ '@/views/characters/Character.vue'
       ),
   },
+  {
+    path: '/locations',
+    name: 'LocationsList',
+    component: () =>
+      import(
+        /* webpackChunkName: "locations" */ '@/views/locations/LocationsList.vue'
+      ),
+  },
+  {
+    path: '/locations/:locationId',
+    name: 'Locations',
+    component: () =>
+      import(
+        /* webpackChunkName: "locations" */ '@/views/locations/Location.vue'
+      ),
+  },
 ];
 
 const router = createRouter({
